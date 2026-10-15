@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroOS - Mobile Simulator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 h-screen w-screen flex items-center justify-center overflow-hidden">
+
+    <!-- Container HP / Simulator Frame -->
+    <div class="w-[380px] h-[780px] bg-zinc-900 border-4 border-zinc-700 rounded-[40px] shadow-2xl flex flex-col overflow-hidden relative"
+         x-data="{ currentScreen: 'lockscreen', guestName: 'Guest' }">
+        
+        <!-- Status Bar -->
+        <div class="h-8 bg-black/40 px-6 flex justify-between items-center text-xs text-zinc-400 select-none">
+            <span>07:22</span>
+            <div class="flex space-x-2">
+                <span>5G</span>
+                <span>🔋 100%</span>
+            </div>
+        </div>
+
+        <!-- Main Screen Area -->
+        <div class="flex-1 flex flex-col justify-center items-center p-6 text-center">
+            
+            <!-- Lockscreen / Guest Quest State -->
+            <template x-if="currentScreen === 'lockscreen'">
+                <div class="space-y-6">
+                    <div class="w-20 h-20 bg-indigo-600/30 border border-indigo-500/50 rounded-full mx-auto flex items-center justify-center text-3xl">
+                        ⚡
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold tracking-wide">ZeroOS</h1>
+                        <p class="text-xs text-zinc-400 mt-1">Guest Mode Active</p>
+                    </div>
+                    <button @click="currentScreen = 'desktop'" 
+                            class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl transition shadow-lg shadow-indigo-600/30">
+                        Mulai Quest / Masuk OS
+                    </button>
+                </div>
+            </template>
+
+            <!-- Desktop / Home Screen State -->
+            <template x-if="currentScreen === 'desktop'">
+                <div class="w-full h-full flex flex-col justify-between py-4">
+                    <div class="text-left">
+                        <h2 class="text-lg font-semibold">Selamat Datang, Guest!</h2>
+                        <p class="text-xs text-zinc-400">Pilih aplikasi buat mulai eksplorasi.</p>
+                    </div>
+                    <!-- Grid App Icons -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="flex flex-col items-center space-y-1 cursor-pointer group">
+                            <div class="w-14 h-14 bg-zinc-800 group-hover:bg-indigo-600 rounded-2xl flex items-center justify-center text-xl transition">
+                                📝
+                            </div>
+                            <span class="text-[10px] text-zinc-300">Notes</span>
+                        </div>
+                        <div class="flex flex-col items-center space-y-1 cursor-pointer group">
+                            <div class="w-14 h-14 bg-zinc-800 group-hover:bg-indigo-600 rounded-2xl flex items-center justify-center text-xl transition">
+                                ⚙️
+                            </div>
+                            <span class="text-[10px] text-zinc-300">Settings</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button @click="currentScreen = 'lockscreen'" 
+                                class="text-xs text-red-400 hover:underline">
+                            Lock Device
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+
+        <!-- Bottom Navigation Bar (Home Indicator) -->
+        <div class="h-6 bg-black/40 flex justify-center items-center">
+            <div class="w-32 h-1 bg-zinc-600 rounded-full"></div>
+        </div>
+
+    </div>
+
+</body>
+</html>
