@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500&family=Google+Sans+Code:wght@700;800&family=Inter:wght@700;800&display=swap');
+
+/* Smartphone Chassis & Bezel Styles */
+:root {
+    --phone-width: 412px;
+    --phone-height: 892px;
+    --bezel-width: 10px;
+    --phone-radius: 46px;
+    --screen-radius: 36px;
+}
+
+/* Outer phone frame with metallic rim and chassis */
+.phone-chassis {
+    position: relative;
+    width: var(--phone-width);
+    height: var(--phone-height);
+    background: #0d0f11;
+    border-radius: var(--phone-radius);
+    padding: var(--bezel-width);
+    box-shadow:
+        0 0 0 1.5px rgba(255, 255, 255, 0.12),
+        0 0 0 3.5px #1c1e22,
+        0 25px 65px -12px rgba(0, 0, 0, 0.95),
+        0 10px 30px -5px rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Subtle speaker earpiece at the top bezel */
+.phone-earpiece {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 46px;
+    height: 3px;
+    background: #17181c;
+    border-radius: 4px;
+    z-index: 60;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.9);
+}
+
+/* Hardware Buttons on the Right Edge */
+.hw-button {
+    position: absolute;
+    right: -4px;
+    width: 4px;
+    background: linear-gradient(to right, #24272c, #3a3f47);
+    border-radius: 0 3px 3px 0;
+    box-shadow: 1px 0 2px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: transform 0.08s ease, filter 0.1s ease;
+    z-index: 10;
+}
+
+.hw-button:hover {
+    filter: brightness(1.25);
+}
+
+.hw-button:active {
+    transform: translateX(-1.5px);
+}
+
+/* Volume Rocker (Volume Up & Down) */
+.hw-btn-volume {
+    top: 175px;
+    height: 64px;
+}
+
+/* Power / Side Key */
+.hw-btn-power {
+    top: 256px;
+    height: 40px;
+}
+
+/* Active Screen Display */
+.phone-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--screen-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+}
+
+/* Punch-hole Front Camera */
+.punch-hole-camera {
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    background: #020305;
+    border-radius: 50%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        inset 0 0 3px rgba(0, 0, 0, 0.95);
+    pointer-events: none;
+}
+
+/* Camera Lens Glass Reflection */
+.punch-hole-lens {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #1e2e4a 0%, #090e18 70%);
+    box-shadow: inset 0 0 1px rgba(96, 165, 250, 0.5);
+}
+
+/* Battery indicator custom icon */
+.battery-pill {
+    width: 22px;
+    height: 11px;
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
+    padding: 1px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.battery-pill::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 2px;
+    bottom: 2px;
+    width: 1.5px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0 1px 1px 0;
+}
+
+.battery-level {
+    height: 100%;
+    width: 80%;
+    background: #ffffff;
+    border-radius: 1px;
+}
+
+/* ==========================================================================
+   ZeroOS Boot Sequence Styles
+   ========================================================================== */
+
+/* Pastikan Font di-import paling atas file */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500&family=Google+Sans+Code:wght@700;800&family=Inter:wght@700;800&display=swap');
+
+/* Boot overlay strictly bounded within .phone-screen */
+.boot-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    /* match the phone inner screen curvature */
+    overflow: hidden;
+    z-index: 9999;
+    background-color: #000000;
+    opacity: 1;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+}
+
+/* Overlay fade-out when handing over to OS interface */
+.boot-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Hidden state after completion */
+.boot-overlay.boot-hidden {
+    display: none !important;
+}
+
+/* Phase 1: Coded UI Splash Screen (Matching Figma 3/9) */
+.boot-splash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 1;
+    z-index: 2;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.boot-splash.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Center Content: "ZENIUZ" - Absolute Center Precision */
+.boot-splash-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.boot-splash-title {
+    font-family: 'Google Sans Code', monospace, sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0;
+}
+
+/* Bottom Content: "Powered by ZeroOS [Z]" */
+.boot-splash-bottom {
+    position: absolute;
+    bottom: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: max-content;
+}
+
+.boot-splash-powered {
+    font-family: 'Comfortaa', cursive, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #a1a1aa;
+    letter-spacing: 0.01em;
+    margin-bottom: 2px;
+    line-height: 1;
+}
+
+.boot-splash-brand-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.boot-splash-brand-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 35px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+/* Wrapper samain persis tingginya kayak font-size ZeroOS (35px) */
+.boot-splash-logo-wrapper {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Bersihkan translateX biar container sumbu X tetep nge-center presisi */
+.boot-splash-brand-logo {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    mix-blend-mode: screen;
+    transform: scale(2.2) translateY(-5px);
+    transform-origin: center;
+}
+
+
+
+/* Phase 2: Boot Animation Video (ZeroOS Boot.mp4) */
+.boot-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background-color: #000000;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.boot-video.visible {
+    opacity: 1;
+}
